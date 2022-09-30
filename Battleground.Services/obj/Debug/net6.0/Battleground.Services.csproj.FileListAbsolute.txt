@@ -1,0 +1,17 @@
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/bin/Debug/net6.0/Battleground.Services.deps.json
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/bin/Debug/net6.0/Battleground.Services.dll
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/bin/Debug/net6.0/Battleground.Services.pdb
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/bin/Debug/net6.0/Battleground.Models.dll
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/bin/Debug/net6.0/Battleground.Repositories.dll
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/bin/Debug/net6.0/Battleground.Models.pdb
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/bin/Debug/net6.0/Battleground.Repositories.pdb
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/obj/Debug/net6.0/Battleground.Services.csproj.AssemblyReference.cache
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/obj/Debug/net6.0/Battleground.Services.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/obj/Debug/net6.0/Battleground.Services.AssemblyInfoInputs.cache
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/obj/Debug/net6.0/Battleground.Services.AssemblyInfo.cs
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/obj/Debug/net6.0/Battleground.Services.csproj.CoreCompileInputs.cache
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/obj/Debug/net6.0/Battleground.Services.csproj.CopyComplete
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/obj/Debug/net6.0/Battleground.Services.dll
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/obj/Debug/net6.0/refint/Battleground.Services.dll
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/obj/Debug/net6.0/Battleground.Services.pdb
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Services/obj/Debug/net6.0/ref/Battleground.Services.dll

@@ -1,0 +1,12 @@
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Repositories/bin/Debug/net6.0/Battleground.Repositories.deps.json
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Repositories/bin/Debug/net6.0/Battleground.Repositories.dll
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Repositories/bin/Debug/net6.0/Battleground.Repositories.pdb
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Repositories/obj/Debug/net6.0/Battleground.Repositories.csproj.AssemblyReference.cache
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Repositories/obj/Debug/net6.0/Battleground.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Repositories/obj/Debug/net6.0/Battleground.Repositories.AssemblyInfoInputs.cache
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Repositories/obj/Debug/net6.0/Battleground.Repositories.AssemblyInfo.cs
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Repositories/obj/Debug/net6.0/Battleground.Repositories.csproj.CoreCompileInputs.cache
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Repositories/obj/Debug/net6.0/Battleground.Repositories.dll
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Repositories/obj/Debug/net6.0/refint/Battleground.Repositories.dll
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Repositories/obj/Debug/net6.0/Battleground.Repositories.pdb
+/Users/sigmarsigurdson/verkefni/Vefþjónustur/Large assignment II - Battleground/Battleground.Repositories/obj/Debug/net6.0/ref/Battleground.Repositories.dll
