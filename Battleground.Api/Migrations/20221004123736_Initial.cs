@@ -43,7 +43,7 @@ namespace Battleground.Api.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    WinnerId = table.Column<int>(type: "integer", nullable: false),
+                    WinnerId = table.Column<int>(type: "integer", nullable: true),
                     StatusId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -59,8 +59,7 @@ namespace Battleground.Api.Migrations
                         name: "FK_Battles_Players_WinnerId",
                         column: x => x.WinnerId,
                         principalTable: "Players",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

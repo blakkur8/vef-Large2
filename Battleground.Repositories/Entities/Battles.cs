@@ -8,7 +8,7 @@ namespace Battleground.Repositories.Entities;
 public class Battles
 {
     public int Id { get; set; }
-    public int WinnerId { get; set; }
+    public int? WinnerId { get; set; }
 
     // Navigation properties
     public Players Winner { get; set; }

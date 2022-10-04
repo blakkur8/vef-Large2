@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Battleground.Api.Migrations
 {
     [DbContext(typeof(BattlegroundDbContext))]
-    [Migration("20221004112315_Initial")]
+    [Migration("20221004123736_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,7 +94,7 @@ namespace Battleground.Api.Migrations
                     b.Property<int>("StatusId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("WinnerId")
+                    b.Property<int?>("WinnerId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -210,9 +210,7 @@ namespace Battleground.Api.Migrations
 
                     b.HasOne("Battleground.Repositories.Entities.Players", "Winner")
                         .WithMany()
-                        .HasForeignKey("WinnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WinnerId");
 
                     b.Navigation("Status");
 

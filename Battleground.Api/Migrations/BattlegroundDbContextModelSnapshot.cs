@@ -92,7 +92,7 @@ namespace Battleground.Api.Migrations
                     b.Property<int>("StatusId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("WinnerId")
+                    b.Property<int?>("WinnerId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -208,9 +208,7 @@ namespace Battleground.Api.Migrations
 
                     b.HasOne("Battleground.Repositories.Entities.Players", "Winner")
                         .WithMany()
-                        .HasForeignKey("WinnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WinnerId");
 
                     b.Navigation("Status");
 
