@@ -24,17 +24,18 @@ builder.Services.AddTransient<IPlayerRepository, PlayerRepository>();
 builder.Services.AddTransient<IBattleService, BattleService>();
 builder.Services.AddTransient<IInventoryService, InventoryService>();
 
+
 builder.Services.AddHttpClient<IPokemonService, PokemonService>(client =>
 {
     client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("PokemonApiBaseUrl"));
 });
 
 // Add DI for DbContext
+
 builder.Services.AddDbContext<BattlegroundDbContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("BattlegroundConnectionString"),
-    b => b.MigrationsAssembly("Battleground.Api"));
-});
+    options.UseNpgsql(builder.Configuration.GetConnectionString("BattlegroundConnectionString")),
+    contextLifetime: ServiceLifetime.Transient,
+    optionsLifetime: ServiceLifetime.Singleton);
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
