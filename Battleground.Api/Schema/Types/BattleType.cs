@@ -16,5 +16,5 @@ public class BattleType : ObjectGraphType<BattleDto>
          * attacks : an array of the AttackType
          */
     }
-    
+
 }
