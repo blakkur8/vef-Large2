@@ -1,17 +1,18 @@
 ﻿using System.Net.Http.Json;
 using Battleground.Models.Dtos;
-//using Battleground.Repositories.Contexts;
+using Battleground.Repositories.Interfaces;
 using Battleground.Services.Interfaces;
 
 namespace Battleground.Services.Implementations;
 
 public class PlayerService : IPlayerService
 {
+    private readonly IPlayerRepository _playerRepository;
     private HttpClient _httpClient;
-    //private BattlegroundDbContext _dbcontext;
-    public PlayerService(HttpClient httpClient)
+    public PlayerService(HttpClient httpClient, IPlayerRepository playerRepository)
     {
         _httpClient = httpClient;
+        _playerRepository = playerRepository;
     }
 
     public IEnumerable<PlayerDto> getAllPlayers()
@@ -19,9 +20,9 @@ public class PlayerService : IPlayerService
         throw new NotImplementedException();
     }
 
-    public PlayerDto getPlayerById()
+    public PlayerDto getPlayerById(int Id)
     {
-        throw new NotImplementedException();
+        return _playerRepository.getPlayerById(Id);
     }
 
 

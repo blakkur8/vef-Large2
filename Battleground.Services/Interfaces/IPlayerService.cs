@@ -6,5 +6,5 @@ public interface IPlayerService
 {
     public IEnumerable<PlayerDto> getAllPlayers();
 
-    public PlayerDto getPlayerById();
+    public PlayerDto getPlayerById(int Id);
 }

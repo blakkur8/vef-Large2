@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Battleground.Models.Api.Schema.Types;
 using Battleground.Services.Interfaces;
+using GraphQL;
 using GraphQL.Types;
 
 namespace Battleground.Api.Schema.Queries;
@@ -38,6 +39,21 @@ public class BattlegroundQuery : ObjectGraphType
 
                 return players;
             });
+
+        Field<PlayerType>("player")
+        .Argument<IntGraphType>("Id")
+        .Resolve(context =>
+        {
+
+            var idArgument = context.GetArgument<int>("Id");
+
+            //System.Console.Write("\n", "idArgument", "\n");
+            //System.Console.Write("\n", idArgument, "\n");
+
+            var player = playerService.getPlayerById(idArgument);
+
+            return player;
+        });
 
     }
 }

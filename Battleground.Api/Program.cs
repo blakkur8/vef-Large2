@@ -6,6 +6,7 @@ using Battleground.Services.Implementations;
 using Battleground.Services.Interfaces;
 using GraphQL;
 using GraphQL.Types;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,8 +18,8 @@ builder.Services.AddHttpScope();
 
 builder.Services.AddTransient<IPokemonService, PokemonService>();
 
-builder.Services.AddTransient<IPlayerRepository, PlayerRepository>();
 builder.Services.AddTransient<IPlayerService, PlayerService>();
+builder.Services.AddTransient<IPlayerRepository, PlayerRepository>();
 
 builder.Services.AddTransient<IBattleService, BattleService>();
 builder.Services.AddTransient<IInventoryService, InventoryService>();
@@ -34,6 +35,8 @@ builder.Services.AddDbContext<BattlegroundDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("BattlegroundConnectionString"),
     b => b.MigrationsAssembly("Battleground.Api"));
 });
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddGraphQL(qlBuilder => qlBuilder
     .AddSystemTextJson()
