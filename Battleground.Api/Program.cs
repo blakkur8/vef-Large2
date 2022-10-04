@@ -1,5 +1,7 @@
 using Battleground.Api.Schema;
 using Battleground.Repositories.Contexts;
+using Battleground.Repositories.Implementations;
+using Battleground.Repositories.Interfaces;
 using Battleground.Services.Implementations;
 using Battleground.Services.Interfaces;
 using GraphQL;
@@ -12,8 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDefer();
 builder.Services.AddHttpScope();
 
+
 builder.Services.AddTransient<IPokemonService, PokemonService>();
+
+builder.Services.AddTransient<IPlayerRepository, PlayerRepository>();
 builder.Services.AddTransient<IPlayerService, PlayerService>();
+
 builder.Services.AddTransient<IBattleService, BattleService>();
 builder.Services.AddTransient<IInventoryService, InventoryService>();
 
