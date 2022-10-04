@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Battleground.Api.Migrations
 {
     [DbContext(typeof(BattlegroundDbContext))]
-    [Migration("20221003174513_Fix2")]
-    partial class Fix2
+    [Migration("20221004112315_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,8 +26,11 @@ namespace Battleground.Api.Migrations
 
             modelBuilder.Entity("Battleground.Repositories.Entities.Attacks", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("BattleId")
                         .HasColumnType("integer");
@@ -50,6 +53,21 @@ namespace Battleground.Api.Migrations
                     b.HasIndex("BattleId", "BattlePokemonIdentifier");
 
                     b.ToTable("Attacks");
+                });
+
+            modelBuilder.Entity("Battleground.Repositories.Entities.BattlePlayer", b =>
+                {
+                    b.Property<int>("PlayerInMatchId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("BattleId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("PlayerInMatchId", "BattleId");
+
+                    b.HasIndex("BattleId");
+
+                    b.ToTable("BattlePlayer");
                 });
 
             modelBuilder.Entity("Battleground.Repositories.Entities.BattlePokemons", b =>
@@ -76,9 +94,14 @@ namespace Battleground.Api.Migrations
                     b.Property<int>("StatusId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("WinnerId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("StatusId");
+
+                    b.HasIndex("WinnerId");
 
                     b.ToTable("Battles");
                 });
@@ -136,21 +159,6 @@ namespace Battleground.Api.Migrations
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("BattlesPlayers", b =>
-                {
-                    b.Property<int>("BattlesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PlayersId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("BattlesId", "PlayersId");
-
-                    b.HasIndex("PlayersId");
-
-                    b.ToTable("BattlesPlayers");
-                });
-
             modelBuilder.Entity("Battleground.Repositories.Entities.Attacks", b =>
                 {
                     b.HasOne("Battleground.Repositories.Entities.BattlePokemons", "Battle")
@@ -160,6 +168,25 @@ namespace Battleground.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("Battle");
+                });
+
+            modelBuilder.Entity("Battleground.Repositories.Entities.BattlePlayer", b =>
+                {
+                    b.HasOne("Battleground.Repositories.Entities.Battles", "Battle")
+                        .WithMany("Battle")
+                        .HasForeignKey("BattleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Battleground.Repositories.Entities.Players", "PlayerInMatch")
+                        .WithMany("PlayerInMatch")
+                        .HasForeignKey("PlayerInMatchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Battle");
+
+                    b.Navigation("PlayerInMatch");
                 });
 
             modelBuilder.Entity("Battleground.Repositories.Entities.BattlePokemons", b =>
@@ -181,13 +208,21 @@ namespace Battleground.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Battleground.Repositories.Entities.Players", "Winner")
+                        .WithMany()
+                        .HasForeignKey("WinnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Status");
+
+                    b.Navigation("Winner");
                 });
 
             modelBuilder.Entity("Battleground.Repositories.Entities.PlayerInventories", b =>
                 {
                     b.HasOne("Battleground.Repositories.Entities.Players", "Player")
-                        .WithMany()
+                        .WithMany("Inventories")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -195,29 +230,26 @@ namespace Battleground.Api.Migrations
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("BattlesPlayers", b =>
-                {
-                    b.HasOne("Battleground.Repositories.Entities.Battles", null)
-                        .WithMany()
-                        .HasForeignKey("BattlesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Battleground.Repositories.Entities.Players", null)
-                        .WithMany()
-                        .HasForeignKey("PlayersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Battleground.Repositories.Entities.BattlePokemons", b =>
                 {
                     b.Navigation("Attacks");
                 });
 
+            modelBuilder.Entity("Battleground.Repositories.Entities.Battles", b =>
+                {
+                    b.Navigation("Battle");
+                });
+
             modelBuilder.Entity("Battleground.Repositories.Entities.BattleStatus", b =>
                 {
                     b.Navigation("Battles");
+                });
+
+            modelBuilder.Entity("Battleground.Repositories.Entities.Players", b =>
+                {
+                    b.Navigation("Inventories");
+
+                    b.Navigation("PlayerInMatch");
                 });
 #pragma warning restore 612, 618
         }

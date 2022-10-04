@@ -24,8 +24,11 @@ namespace Battleground.Api.Migrations
 
             modelBuilder.Entity("Battleground.Repositories.Entities.Attacks", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("BattleId")
                         .HasColumnType("integer");

@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Battleground.Api.Migrations
 {
-    public partial class Inital : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,39 +24,17 @@ namespace Battleground.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attacks",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Success = table.Column<bool>(type: "boolean", nullable: false),
-                    CriticalHit = table.Column<bool>(type: "boolean", nullable: false),
-                    Damage = table.Column<int>(type: "integer", nullable: false),
-                    BattleId = table.Column<int>(type: "integer", nullable: false),
-                    BattlePokemonIdentifier = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Attacks", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Players",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Deleted = table.Column<bool>(type: "boolean", nullable: false),
-                    AttacksId = table.Column<string>(type: "text", nullable: true)
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Players", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Players_Attacks_AttacksId",
-                        column: x => x.AttacksId,
-                        principalTable: "Attacks",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -105,6 +83,30 @@ namespace Battleground.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BattlePlayer",
+                columns: table => new
+                {
+                    BattleId = table.Column<int>(type: "integer", nullable: false),
+                    PlayerInMatchId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BattlePlayer", x => new { x.PlayerInMatchId, x.BattleId });
+                    table.ForeignKey(
+                        name: "FK_BattlePlayer_Battles_BattleId",
+                        column: x => x.BattleId,
+                        principalTable: "Battles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BattlePlayer_Players_PlayerInMatchId",
+                        column: x => x.PlayerInMatchId,
+                        principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BattlePokemons",
                 columns: table => new
                 {
@@ -122,10 +124,38 @@ namespace Battleground.Api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Attacks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Success = table.Column<bool>(type: "boolean", nullable: false),
+                    CriticalHit = table.Column<bool>(type: "boolean", nullable: false),
+                    Damage = table.Column<int>(type: "integer", nullable: false),
+                    BattleId = table.Column<int>(type: "integer", nullable: false),
+                    BattlePokemonIdentifier = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attacks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Attacks_BattlePokemons_BattleId_BattlePokemonIdentifier",
+                        columns: x => new { x.BattleId, x.BattlePokemonIdentifier },
+                        principalTable: "BattlePokemons",
+                        principalColumns: new[] { "BattleId", "PokemonIdentifier" },
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Attacks_BattleId_BattlePokemonIdentifier",
                 table: "Attacks",
                 columns: new[] { "BattleId", "BattlePokemonIdentifier" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BattlePlayer_BattleId",
+                table: "BattlePlayer",
+                column: "BattleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Battles_StatusId",
@@ -136,26 +166,15 @@ namespace Battleground.Api.Migrations
                 name: "IX_Battles_WinnerId",
                 table: "Battles",
                 column: "WinnerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Players_AttacksId",
-                table: "Players",
-                column: "AttacksId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Attacks_BattlePokemons_BattleId_BattlePokemonIdentifier",
-                table: "Attacks",
-                columns: new[] { "BattleId", "BattlePokemonIdentifier" },
-                principalTable: "BattlePokemons",
-                principalColumns: new[] { "BattleId", "PokemonIdentifier" },
-                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Attacks_BattlePokemons_BattleId_BattlePokemonIdentifier",
-                table: "Attacks");
+            migrationBuilder.DropTable(
+                name: "Attacks");
+
+            migrationBuilder.DropTable(
+                name: "BattlePlayer");
 
             migrationBuilder.DropTable(
                 name: "PlayerInventories");
@@ -171,9 +190,6 @@ namespace Battleground.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Players");
-
-            migrationBuilder.DropTable(
-                name: "Attacks");
         }
     }
 }
