@@ -4,5 +4,5 @@ public class InventoryInputType
 {
     public int PlayerId { get; set; }
 
-    public string PokemonIdentifyer { get; set; }
+    public string PokemonIdentifier { get; set; }
 }
