@@ -13,11 +13,13 @@ public class BattlegroundQuery : ObjectGraphType
 {
     private IPokemonService _pokemonService;
     private IPlayerService _playerService;
+    private IBattleService _battleService;
 
-    public BattlegroundQuery(IPokemonService pokemonService, IPlayerService playerService)
+    public BattlegroundQuery(IPokemonService pokemonService, IPlayerService playerService, IBattleService battleService)
     {
         _pokemonService = pokemonService;
         _playerService = playerService;
+        _battleService = battleService;
 
         Field<ListGraphType<PokemonType>>("allPokemons")
             .ResolveAsync(async context =>
@@ -63,6 +65,22 @@ public class BattlegroundQuery : ObjectGraphType
 
                 return player;
             });
+        
 
+        Field<ListGraphType<BattleType>>("allBattles")
+            .Resolve(context =>
+            {
+                var battles = battleService.getAllBattles();
+                return battles;
+            });
+        
+        Field<BattleType>("battles")
+            .Argument<IntGraphType>("Id")
+            .Resolve(context =>
+            {
+                var battleIdArg = context.GetArgument<int>("Id");
+                var battle = battleService.GetBattleById(battleIdArg);
+                return battle;
+            });
     }
 }
