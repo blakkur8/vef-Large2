@@ -8,6 +8,10 @@ public class BattleType : ObjectGraphType<BattleDto>
     public BattleType()
     {
         Field(x => x.Id).Description("The id of the battle");
+
+
+
+
         /*
          * status : BattleStatus
          * winner : PlayerType

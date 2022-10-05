@@ -9,6 +9,9 @@ public class PlayerType : ObjectGraphType<PlayerDto>
     {
         Field(x => x.Id).Description("Player Id");
         Field(x => x.Name).Description("Player Name");
+
+
+        IsTypeOf = obj => obj is PlayerDto;
         //  Field<ListGraphType<InventoryType>>("Inventory")
         //     .ResolveAsync(async context =>
         //     {

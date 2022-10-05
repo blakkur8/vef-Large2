@@ -11,5 +11,8 @@ namespace Battleground.Repositories.Interfaces
         public IEnumerable<PlayerDto> getAllPlayers();
 
         public PlayerDto getPlayerById(int Id);
+
+        public IEnumerable<PlayerDto> getPokemonOwners(string pokemonIdentifier);
+
     }
 }

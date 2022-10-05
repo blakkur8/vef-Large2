@@ -26,9 +26,18 @@ public class BattlegroundQuery : ObjectGraphType
 
                 var pokemons = await pokemonService.getAllPokemons();
 
-
-
                 return pokemons;
+            });
+
+        Field<PokemonType>("pokemon")
+            .Argument<StringGraphType>("Name")
+            .ResolveAsync(async context =>
+            {
+                var name = context.GetArgument<string>("Name");
+
+                var pokemon = await pokemonService.getPokemonByName(name);
+
+                return pokemon;
             });
 
         Field<ListGraphType<PokemonType>>("allPlayers")
@@ -41,19 +50,19 @@ public class BattlegroundQuery : ObjectGraphType
             });
 
         Field<PlayerType>("player")
-        .Argument<IntGraphType>("Id")
-        .Resolve(context =>
-        {
+            .Argument<IntGraphType>("Id")
+            .Resolve(context =>
+            {
 
-            var idArgument = context.GetArgument<int>("Id");
+                var idArgument = context.GetArgument<int>("Id");
 
-            //System.Console.Write("\n", "idArgument", "\n");
-            //System.Console.Write("\n", idArgument, "\n");
+                //System.Console.Write("\n", "idArgument", "\n");
+                //System.Console.Write("\n", idArgument, "\n");
 
-            var player = playerService.getPlayerById(idArgument);
+                var player = playerService.getPlayerById(idArgument);
 
-            return player;
-        });
+                return player;
+            });
 
     }
 }
