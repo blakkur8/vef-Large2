@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Battleground.Repositories.Entities;
 using Battleground.Models.Dtos;
+using Battleground.Api.Schema.InputTypes;
+using Battleground.Models.InputModels;
 
 namespace Battleground.Api.Profiles
 {
@@ -13,6 +15,7 @@ namespace Battleground.Api.Profiles
         public PlayerProfile()
         {
             CreateMap<Players, PlayerDto>();
+            CreateMap<PlayerInputModel, Players>();
         }
 
     }

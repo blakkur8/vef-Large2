@@ -36,6 +36,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Battleground.Repositories\Battleground.Repositories.csproj" />
     <ProjectReference Include="..\Battleground.Services\Battleground.Services.csproj" />
+    <ProjectReference Include="..\Battleground.Models\Battleground.Models.csproj" />
   </ItemGroup>
 
 </Project>

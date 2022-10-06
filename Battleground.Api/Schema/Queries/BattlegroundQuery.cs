@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Battleground.Models.Api.Schema.Types;
+using Battleground.Api.Schema.Types;
 using Battleground.Services.Interfaces;
 using GraphQL;
 using GraphQL.Types;
@@ -26,16 +26,13 @@ public class BattlegroundQuery : ObjectGraphType
 
                 var pokemons = await pokemonService.getAllPokemons();
 
-
-
                 return pokemons;
             });
 
-        Field<ListGraphType<PokemonType>>("allPlayers")
+        Field<ListGraphType<PlayerType>>("allPlayers")
             .Resolve(context =>
             {
                 var players = playerService.getAllPlayers();
-
 
                 return players;
             });

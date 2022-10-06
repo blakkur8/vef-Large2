@@ -1,7 +1,7 @@
 using Battleground.Models.Dtos;
 using GraphQL.Types;
 
-namespace Battleground.Models.Api.Schema.Types;
+namespace Battleground.Api.Schema.Types;
 
 public class PokemonType : ObjectGraphType<PokemonDto>
 {

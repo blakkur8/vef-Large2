@@ -1,10 +1,16 @@
-/*
-PlayerInputType
-■ name: string
-*/
+using Battleground.Models.Dtos;
+using Battleground.Models.InputModels;
+using GraphQL.Types;
+
+
 
 namespace Battleground.Api.Schema.InputTypes;
-public class PlayerInputType
+public class PlayerInputType : InputObjectGraphType<PlayerInputModel>
 {
-    public string Name { get; set; }
+    public PlayerInputType()
+    {
+        Field(x => x.Name).Description("The name of the character");
+    }
+
+
 }

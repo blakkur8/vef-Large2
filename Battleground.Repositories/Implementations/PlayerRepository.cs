@@ -7,6 +7,7 @@ using Battleground.Repositories.Contexts;
 using Battleground.Models.Dtos;
 using Battleground.Repositories.Entities;
 using AutoMapper;
+using Battleground.Models.InputModels;
 
 namespace Battleground.Repositories.Implementations
 {
@@ -29,6 +30,33 @@ namespace Battleground.Repositories.Implementations
         {
             var player = _mapper.Map<PlayerDto>(_dbContext.Players.FirstOrDefault(p => p.Id == Id));
             return player;
+        }
+
+        public PlayerDto createPlayer(Players player)
+        {
+
+            _dbContext.Add(player);
+            _dbContext.SaveChanges();
+
+            // virkar kanski ekki :(
+            return _mapper.Map<PlayerDto>(player);
+        }
+
+        public PlayerDto removePlayer(int id)
+        {
+            var player = _dbContext.Players.FirstOrDefault(p => p.Id == id);
+            if (player != null)
+            {
+                _dbContext.Remove(player);
+                _dbContext.SaveChanges();
+                return _mapper.Map<PlayerDto>(player);
+            }
+            else
+            {
+                throw new DllNotFoundException();
+            }
+
+
         }
 
     }
