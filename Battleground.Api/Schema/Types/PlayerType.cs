@@ -17,11 +17,17 @@ public class PlayerType : ObjectGraphType<PlayerDto>
         Field<ListGraphType<NonNullGraphType<PokemonType>>>("Inventory")
            .ResolveAsync(async context =>
            {
-               var player_id = context.GetArgument<int>("Id");
-               var all_pokemons = await _pokemonService.getAllPokemons();
+               var inventories = context.Source.Inventories;
 
-               //var pokemon = all_pokemons.Where(pokemon => pokemon.owners.Any(owner => owner.Id == context.Source.Id));
-               return null;
+               List<PokemonDto> list = new List<PokemonDto>();
+
+               foreach (var inventory in inventories)
+               {
+                   var pokemon = await _pokemonService.getPokemonByName(inventory.PokemonIdentifier);
+                   list.Add(pokemon);
+               }
+
+               return list;
            });
     }
 }

@@ -23,13 +23,13 @@ namespace Battleground.Repositories.Implementations
         }
         public IEnumerable<PlayerDto> getAllPlayers()
         {
-            var players = _mapper.Map<IEnumerable<PlayerDto>>(_dbContext.Players);
+            var players = _mapper.Map<IEnumerable<PlayerDto>>(_dbContext.Players.Include(p => p.Inventories));
             return players;
         }
 
         public PlayerDto getPlayerById(int Id)
         {
-            var player = _mapper.Map<PlayerDto>(_dbContext.Players.FirstOrDefault(p => p.Id == Id));
+            var player = _mapper.Map<PlayerDto>(_dbContext.Players.Include(p => p.Inventories).FirstOrDefault(p => p.Id == Id));
             return player;
         }
 
