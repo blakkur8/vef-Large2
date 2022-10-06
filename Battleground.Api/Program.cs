@@ -22,6 +22,9 @@ builder.Services.AddTransient<IPlayerService, PlayerService>();
 builder.Services.AddTransient<IPlayerRepository, PlayerRepository>();
 
 builder.Services.AddTransient<IBattleService, BattleService>();
+builder.Services.AddTransient<IBattleRepository, BattleRepository>();
+
+builder.Services.AddTransient<IBattleService, BattleService>();
 builder.Services.AddTransient<IInventoryService, InventoryService>();
 
 

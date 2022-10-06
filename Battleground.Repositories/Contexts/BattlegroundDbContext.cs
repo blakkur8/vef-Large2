@@ -20,6 +20,8 @@ public class BattlegroundDbContext : DbContext
             .HasKey(x => new { x.BattleId, x.PokemonIdentifier });
         modelBuilder.Entity<BattlePlayer>()
             .HasKey(x => new { x.PlayerInMatchId, x.BattleId });
+        // modelBuilder.Entity<Attacks>()
+        // Configure foreign key stuff maybe?
     }
     public DbSet<Attacks> Attacks { get; set; }
     public DbSet<BattlePokemons> BattlePokemons { get; set; }

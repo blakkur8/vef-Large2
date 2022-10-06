@@ -8,6 +8,7 @@ using Battleground.Models.Dtos;
 using Battleground.Repositories.Entities;
 using AutoMapper;
 using Battleground.Models.InputModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Battleground.Repositories.Implementations
 {
@@ -59,5 +60,17 @@ namespace Battleground.Repositories.Implementations
 
         }
 
+        public IEnumerable<PlayerDto> getPokemonOwners(string pokemonIdentifier)
+        {
+            var owners = _dbContext
+                    .PlayerInventories
+                    .Include(x => x.Player)
+                    .Where(x => x.PokemonIdentifier == pokemonIdentifier)
+                    .Select(x => x.Player)
+                    .AsEnumerable();
+
+            var results = _mapper.Map<IEnumerable<PlayerDto>>(owners);
+            return results;
+        }
     }
 }

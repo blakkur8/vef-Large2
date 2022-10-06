@@ -13,11 +13,13 @@ public class BattlegroundQuery : ObjectGraphType
 {
     private IPokemonService _pokemonService;
     private IPlayerService _playerService;
+    private IBattleService _battleService;
 
-    public BattlegroundQuery(IPokemonService pokemonService, IPlayerService playerService)
+    public BattlegroundQuery(IPokemonService pokemonService, IPlayerService playerService, IBattleService battleService)
     {
         _pokemonService = pokemonService;
         _playerService = playerService;
+        _battleService = battleService;
 
         Field<ListGraphType<PokemonType>>("allPokemons")
             .ResolveAsync(async context =>
@@ -38,19 +40,35 @@ public class BattlegroundQuery : ObjectGraphType
             });
 
         Field<PlayerType>("player")
-        .Argument<IntGraphType>("Id")
-        .Resolve(context =>
-        {
+            .Argument<IntGraphType>("Id")
+            .Resolve(context =>
+            {
 
-            var idArgument = context.GetArgument<int>("Id");
+                var idArgument = context.GetArgument<int>("Id");
 
-            //System.Console.Write("\n", "idArgument", "\n");
-            //System.Console.Write("\n", idArgument, "\n");
+                //System.Console.Write("\n", "idArgument", "\n");
+                //System.Console.Write("\n", idArgument, "\n");
 
-            var player = playerService.getPlayerById(idArgument);
+                var player = playerService.getPlayerById(idArgument);
 
-            return player;
-        });
+                return player;
+            });
 
+
+        Field<ListGraphType<BattleType>>("allBattles")
+            .Resolve(context =>
+            {
+                var battles = battleService.getAllBattles();
+                return battles;
+            });
+
+        Field<BattleType>("battles")
+            .Argument<IntGraphType>("Id")
+            .Resolve(context =>
+            {
+                var battleIdArg = context.GetArgument<int>("Id");
+                var battle = battleService.GetBattleById(battleIdArg);
+                return battle;
+            });
     }
 }
