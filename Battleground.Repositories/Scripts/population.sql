@@ -32,7 +32,11 @@ INSERT INTO "Battles" ("WinnerId", "StatusId") VALUES (2, 3);
 INSERT INTO "Battles" ("WinnerId", "StatusId") VALUES (6, 3);
 -- Create battles here ...
 
-INSERT INTO "BattlePokemons" ("PokemonIdentifier", "BattleId") VALUES ('snorlax', 1);
+-- Create players in battle ...
+INSERT INTO "BattlePlayer" ("BattleId", "PlayerInMatchId") VALUES (3, 3);
+INSERT INTO "BattlePlayer" ("BattleId", "PlayerInMatchId") VALUES (3, 1);
+
+INSERT INTO "BattlePokemons" ("PokemonIdentifier", "BattleId") VALUES ('snorlax', 3);
 INSERT INTO "BattlePokemons" ("PokemonIdentifier", "BattleId") VALUES ('eevee', 2);
 INSERT INTO "BattlePokemons" ("PokemonIdentifier", "BattleId") VALUES ('charizard', 3);
 INSERT INTO "BattlePokemons" ("PokemonIdentifier", "BattleId") VALUES ('bulbasaur', 4);

@@ -2,11 +2,9 @@
 
 public class AttackDto
 {
-    public int damageDealt { get; set; }
-    public bool criticalHit { get; set; }
-    public bool successfulHit { get; set; }
-    //
-    /*
-     * attackedBy : PokemonType
-     */
+    public int DamageDealt { get; set; }
+    public bool CriticalHit { get; set; }
+    public bool SuccessfulHit { get; set; }
+    public BattlePokemonsDto BattlePokemons { get; set; }
+    // public PokemonDto AttackedBy { get; set; }
 }

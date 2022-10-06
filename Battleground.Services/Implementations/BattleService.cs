@@ -9,7 +9,7 @@ public class BattleService : IBattleService
 {
     private HttpClient _httpClient;
     private IBattleRepository _battleRepository;
-    
+
     public BattleService(HttpClient httpClient, IBattleRepository battleRepository)
     {
         _httpClient = httpClient;
@@ -19,5 +19,6 @@ public class BattleService : IBattleService
         await _httpClient.GetFromJsonAsync<IEnumerable<BattleDto>>("battles");
 
     public async Task<BattleDto> GetBattleById(int Id) =>
-        await _httpClient.GetFromJsonAsync<BattleDto>($"battles/{Id}");
+        await _battleRepository.GetBattleById(Id);
+    // await _httpClient.GetFromJsonAsync<BattleDto>($"battles/{Id}");
 }

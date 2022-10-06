@@ -4,6 +4,6 @@ namespace Battleground.Repositories.Interfaces;
 public interface IBattleRepository
 {
     public IEnumerable<BattleDto> getAllBattles();
-    public BattleDto GetBattleById(int Id);
+    public Task<BattleDto> GetBattleById(int Id);
 
 }

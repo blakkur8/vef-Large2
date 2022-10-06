@@ -2,4 +2,7 @@
 
 public enum BattleStatus
 {
+    NOT_STARTED,
+    STARTED,
+    FINISHED
 }

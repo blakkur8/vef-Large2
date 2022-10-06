@@ -15,24 +15,11 @@ public class PokemonType : ObjectGraphType<PokemonDto>
         Field(x => x.HealthPoints).Description("The health points for the pokemon");
         Field(x => x.BaseAttack).Description("The base attack for the pokemon");
         Field(x => x.Weight).Description("The weight of the pokemon");
-        Field<ListGraphType<PlayerType>>("owners")
+        Field<NonNullGraphType<ListGraphType<NonNullGraphType<PlayerType>>>>("owners")
            .Resolve(context =>
            {
                var owners = _pokemonService.getPokemonOwners(context.Source.Name);
                return owners;
            });
-        IsTypeOf = obj => obj is PokemonDto;
-
     }
 }
-
-
-/*
-
-■ name: string*
-■ baseAttack: int*
-■ healthPoints: int*
-■ weight: int*
-■ owners: An array of PlayerType
-
-*/

@@ -24,8 +24,6 @@ public class BattlegroundQuery : ObjectGraphType
         Field<ListGraphType<PokemonType>>("allPokemons")
             .ResolveAsync(async context =>
             {
-                // Get pokemons from pokemon service
-
                 var pokemons = await pokemonService.getAllPokemons();
 
                 return pokemons;
@@ -35,10 +33,7 @@ public class BattlegroundQuery : ObjectGraphType
             .Argument<StringGraphType>("name")
             .ResolveAsync(async context =>
             {
-                // Get pokemons from pokemon service
-
                 var name = context.GetArgument<string>("name");
-
                 var pokemon = await pokemonService.getPokemonByName(name);
 
                 return pokemon;
@@ -68,19 +63,19 @@ public class BattlegroundQuery : ObjectGraphType
             });
 
 
-        Field<ListGraphType<BattleType>>("allBattles")
-            .Resolve(context =>
-            {
-                var battles = battleService.getAllBattles();
-                return battles;
-            });
+        // Field<ListGraphType<BattleType>>("allBattles")
+        //     .Resolve(context =>
+        //     {
+        //         var battles = battleService.getAllBattles();
+        //         return battles;
+        //     });
 
-        Field<BattleType>("battles")
+        Field<BattleType>("battle")
             .Argument<IntGraphType>("Id")
-            .Resolve(context =>
+            .ResolveAsync(async context =>
             {
                 var battleIdArg = context.GetArgument<int>("Id");
-                var battle = battleService.GetBattleById(battleIdArg);
+                var battle = await battleService.GetBattleById(battleIdArg);
                 return battle;
             });
     }
