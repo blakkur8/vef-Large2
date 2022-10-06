@@ -63,12 +63,12 @@ public class BattlegroundQuery : ObjectGraphType
             });
 
 
-        // Field<ListGraphType<BattleType>>("allBattles")
-        //     .Resolve(context =>
-        //     {
-        //         var battles = battleService.getAllBattles();
-        //         return battles;
-        //     });
+        Field<ListGraphType<BattleType>>("allBattles")
+            .ResolveAsync(async context =>
+            {
+                var battles = await battleService.GetAllBattles();
+                return battles;
+            });
 
         Field<BattleType>("battle")
             .Argument<IntGraphType>("Id")

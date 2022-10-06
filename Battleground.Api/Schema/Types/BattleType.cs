@@ -11,7 +11,7 @@ public class BattleType : ObjectGraphType<BattleDto>
     public BattleType(IPokemonService pokemonService)
     {
         Field(x => x.Id).Description("The id of the battle");
-        // Field(x => x.Status).Description("The status of the battle");
+        Field(x => x.Status).Description("The status of the battle");
 
         Field(x => x.Winner, nullable: true).Description("The winner of the battle");
 
@@ -33,7 +33,7 @@ public class BattleType : ObjectGraphType<BattleDto>
                 return list;
             });
         Field(x => x.PlayersInMatch).Description("The players in the battle");
-        // Field(x => x.Attacks).Description("The attacks that occured during the battle");
+        Field(x => x.Attacks).Description("The attacks that occured during the battle");
         _pokemonService = pokemonService;
     }
 }

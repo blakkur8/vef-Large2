@@ -15,8 +15,8 @@ public class BattleService : IBattleService
         _httpClient = httpClient;
         _battleRepository = battleRepository;
     }
-    public async Task<IEnumerable<BattleDto>?> getAllBattles() =>
-        await _httpClient.GetFromJsonAsync<IEnumerable<BattleDto>>("battles");
+    public async Task<IEnumerable<BattleDto>> GetAllBattles() =>
+        await _battleRepository.GetAllBattles();
 
     public async Task<BattleDto> GetBattleById(int Id) =>
         await _battleRepository.GetBattleById(Id);

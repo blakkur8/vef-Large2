@@ -9,6 +9,7 @@ public class BattleDto
     public PlayerDto? Winner { get; set; }
     public IEnumerable<BattlePokemonsDto> BattlePokemons { get; set; }
     public IEnumerable<PlayerDto>? PlayersInMatch { get; set; }
-    // public IEnumerable<AttackDto> Attacks { get; set; }
+    public IEnumerable<AttackDto> Attacks { get; set; }
+    public BattleStatus Status { get; set; }
 
 }

@@ -52,4 +52,6 @@ INSERT INTO "Attacks" ("Success", "CriticalHit", "Damage", "BattleId", "BattlePo
 INSERT INTO "Attacks" ("Success", "CriticalHit", "Damage", "BattleId", "BattlePokemonIdentifier") VALUES (TRUE, TRUE, 50, 4, 'bulbasaur');
 INSERT INTO "Attacks" ("Success", "CriticalHit", "Damage", "BattleId", "BattlePokemonIdentifier") VALUES (TRUE, FALSE, 200, 5, 'squirtle');
 INSERT INTO "Attacks" ("Success", "CriticalHit", "Damage", "BattleId", "BattlePokemonIdentifier") VALUES (TRUE, TRUE, 500, 6, 'dragonite');
+
+INSERT INTO "Attacks" ("Success", "CriticalHit", "Damage", "BattleId", "BattlePokemonIdentifier") VALUES (TRUE, TRUE, 500, 3, 'snorlax');
 -- Create attacks here ...
