@@ -31,6 +31,19 @@ public class BattlegroundQuery : ObjectGraphType
                 return pokemons;
             });
 
+        Field<PokemonType>("pokemon")
+            .Argument<StringGraphType>("name")
+            .ResolveAsync(async context =>
+            {
+                // Get pokemons from pokemon service
+
+                var name = context.GetArgument<string>("name");
+
+                var pokemon = await pokemonService.getPokemonByName(name);
+
+                return pokemon;
+            });
+
         Field<ListGraphType<PlayerType>>("allPlayers")
             .Resolve(context =>
             {
