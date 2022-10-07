@@ -46,9 +46,11 @@ namespace Battleground.Repositories.Implementations
         public PlayerDto removePlayer(int id)
         {
             var player = _dbContext.Players.FirstOrDefault(p => p.Id == id);
+
             if (player != null)
             {
-                _dbContext.Remove(player);
+                player.Deleted = true;
+                //_dbContext.Remove(player);
                 _dbContext.SaveChanges();
                 return _mapper.Map<PlayerDto>(player);
             }
