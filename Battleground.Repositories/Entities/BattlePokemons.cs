@@ -12,5 +12,5 @@ public class BattlePokemons
 
     // Navigation properties
     public Battles Battle { get; set; }
-    public ICollection<Attacks> Attacks { get; set; }
+    public ICollection<Attacks>? Attacks { get; set; }
 }

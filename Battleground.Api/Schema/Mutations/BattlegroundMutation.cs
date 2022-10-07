@@ -18,8 +18,9 @@ namespace Battleground.Api.Schema.Mutations
     {
         private IPokemonService _pokemonService;
         private IPlayerService _playerService;
+        private IBattleService _battleService;
         private readonly IMapper _mapper;
-        public BattlegroundMutation(IPokemonService pokemonService, IPlayerService playerService, IMapper mapper)
+        public BattlegroundMutation(IPokemonService pokemonService, IPlayerService playerService, IMapper mapper, IBattleService battleService)
         {
             _pokemonService = pokemonService;
             _playerService = playerService;
@@ -37,10 +38,22 @@ namespace Battleground.Api.Schema.Mutations
             Field<PlayerType>("removePlayer")
                 .Argument<IntGraphType>("id")
                 .Resolve(context =>
-            {
-                var idArgument = context.GetArgument<int>("id");
-                return _playerService.removePlayer(idArgument);
-            });
+                {
+                    var idArgument = context.GetArgument<int>("id");
+                    return _playerService.removePlayer(idArgument);
+                });
+
+            Field<BattleType>("addBattle")
+                .Argument<BattleInputType>("battle")
+                .ResolveAsync(async context =>
+                {
+                    var battle = context.GetArgument<BattleInputModel>("battle");
+                    // TODO: Validate input, does pokemon exist with the given id?
+                    var newBattle = await _battleService.CreateBattle(battle);
+
+                    return null;
+                });
+            _battleService = battleService;
         }
     }
 }

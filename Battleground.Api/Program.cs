@@ -36,7 +36,9 @@ builder.Services.AddHttpClient<IPokemonService, PokemonService>(client =>
 // Add DI for DbContext
 
 builder.Services.AddDbContext<BattlegroundDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("BattlegroundConnectionString")),
+    options.UseNpgsql(builder.Configuration.GetConnectionString("BattlegroundConnectionString"),
+        b => b.MigrationsAssembly("Battleground.Api")
+    ),
     contextLifetime: ServiceLifetime.Transient,
     optionsLifetime: ServiceLifetime.Singleton);
 

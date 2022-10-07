@@ -1,9 +1,15 @@
+using Battleground.Models.Dtos;
+using Battleground.Models.InputModels;
+using GraphQL.Types;
+
+
+
 namespace Battleground.Api.Schema.InputTypes;
-
-public class BattleInputType
+public class BattleInputType : InputObjectGraphType<BattleInputModel>
 {
-    // TODO: "the array cannot be null nor the items within the array"
-    public ICollection<int> PlayerIds { get; set; }
-
-    public ICollection<int> PokemonIds { get; set; }
+    public BattleInputType()
+    {
+        Field(x => x.PlayerIds).Description("The players in the match");
+        Field(x => x.PokemonIds).Description("The pokemons in the match");
+    }
 }

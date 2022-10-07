@@ -8,6 +8,7 @@ using Battleground.Models.Dtos;
 using Battleground.Repositories.Entities;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Battleground.Models.InputModels;
 
 namespace Battleground.Repositories.Implementations
 {
@@ -124,6 +125,30 @@ namespace Battleground.Repositories.Implementations
                                     })).SelectMany(r => r)
                                 }).FirstOrDefaultAsync(x => x.Id == Id);
             return battle;
+        }
+
+        public async Task<BattleDto> CreateBattle(BattleInputModel battle)
+        {
+            var battles = _dbContext.Battles;
+
+            var battleStatusNotStarted = await _dbContext.BattleStatus.FirstOrDefaultAsync(b => b.Name == "NOT_STARTED");
+
+            var newBattle = new Battles
+            {
+                Status = battleStatusNotStarted,
+            };
+
+            battles.Add(newBattle);
+            await _dbContext.SaveChangesAsync();
+
+            var newBattleId = newBattle.Id;
+
+
+            System.Console.WriteLine("newBattleId");
+            System.Console.WriteLine(newBattleId);
+
+
+            throw new NotImplementedException();
         }
     }
 }
