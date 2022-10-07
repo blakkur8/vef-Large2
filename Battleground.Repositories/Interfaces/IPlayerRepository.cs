@@ -10,13 +10,13 @@ namespace Battleground.Repositories.Interfaces
 {
     public interface IPlayerRepository
     {
-        public IEnumerable<PlayerDto> getAllPlayers();
+        public IEnumerable<PlayerDto> GetAllPlayers();
 
-        public PlayerDto getPlayerById(int Id);
+        public PlayerDto GetPlayerById(int Id);
 
-        public PlayerDto createPlayer(Players playerModel);
+        public PlayerDto CreatePlayer(Players playerModel);
 
-        public PlayerDto removePlayer(int id);
+        public PlayerDto RemovePlayer(int id);
         public IEnumerable<PlayerDto> GetPokemonOwners(string pokemonIdentifier);
     }
 }

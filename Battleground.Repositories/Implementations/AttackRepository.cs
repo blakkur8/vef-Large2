@@ -25,7 +25,7 @@ namespace Battleground.Repositories.Implementations
             _httpClient = httpClient;
 
         }
-        public AttackDto createAttack(AttackInputModel attack, PokemonDto pokemon)
+        public AttackDto CreateAttack(AttackInputModel attack, PokemonDto pokemon)
         {
             // need pokemon base attack
             // calculate for critical and not hitting 

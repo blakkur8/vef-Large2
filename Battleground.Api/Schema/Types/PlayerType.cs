@@ -27,7 +27,7 @@ public class PlayerType : ObjectGraphType<PlayerDto>
 
                foreach (var inventory in inventories)
                {
-                   var pokemon = await _pokemonService.getPokemonByName(inventory.PokemonIdentifier);
+                   var pokemon = await _pokemonService.GetPokemonByName(inventory.PokemonIdentifier);
                    list.Add(pokemon);
                }
 

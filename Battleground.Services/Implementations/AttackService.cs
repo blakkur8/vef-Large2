@@ -21,9 +21,9 @@ public class AttackService : IAttackService
         _httpClient = httpClient;
         _pokemonService = pokemonService;
     }
-    public async Task<AttackDto> createAttack(AttackInputModel attack)
+    public async Task<AttackDto> CreateAttack(AttackInputModel attack)
     {
-        var pokemon = await _pokemonService.getPokemonByName(attack.Attacker);
-        return _attackRepository.createAttack(attack, pokemon);
+        var pokemon = await _pokemonService.GetPokemonByName(attack.Attacker);
+        return _attackRepository.CreateAttack(attack, pokemon);
     }
 }

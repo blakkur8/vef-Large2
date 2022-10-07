@@ -10,5 +10,5 @@ namespace Battleground.Services.Interfaces;
 
 public interface IAttackService
 {
-    public Task<AttackDto> createAttack(AttackInputModel attack);
+    public Task<AttackDto> CreateAttack(AttackInputModel attack);
 }

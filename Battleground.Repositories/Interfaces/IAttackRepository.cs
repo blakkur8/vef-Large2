@@ -10,6 +10,6 @@ namespace Battleground.Repositories.Interfaces
 {
     public interface IAttackRepository
     {
-        public AttackDto createAttack(AttackInputModel attack, PokemonDto pokemon);
+        public AttackDto CreateAttack(AttackInputModel attack, PokemonDto pokemon);
     }
 }

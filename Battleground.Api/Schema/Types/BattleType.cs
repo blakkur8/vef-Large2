@@ -26,7 +26,7 @@ public class BattleType : ObjectGraphType<BattleDto>
 
                 foreach (var battlepokemon in pokemons)
                 {
-                    var pokemon = await _pokemonService.getPokemonByName(battlepokemon.PokemonIdentifier);
+                    var pokemon = await _pokemonService.GetPokemonByName(battlepokemon.PokemonIdentifier);
                     list.Add(pokemon);
                 }
 

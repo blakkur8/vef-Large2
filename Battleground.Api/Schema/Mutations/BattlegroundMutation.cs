@@ -39,7 +39,7 @@ namespace Battleground.Api.Schema.Mutations
                 .Resolve(context =>
             {
                 var player = context.GetArgument<PlayerInputModel>("player");
-                return _playerService.createPlayer(player);
+                return _playerService.CreatePlayer(player);
 
             });
 
@@ -48,7 +48,7 @@ namespace Battleground.Api.Schema.Mutations
                 .Resolve(context =>
                 {
                     var idArgument = context.GetArgument<int>("id");
-                    return _playerService.removePlayer(idArgument);
+                    return _playerService.RemovePlayer(idArgument);
                 });
 
             Field<BattleType>("addBattle")
@@ -68,7 +68,7 @@ namespace Battleground.Api.Schema.Mutations
                 {
 
                     var attack = context.GetArgument<AttackInputModel>("attack");
-                    var ret_val = await _attackService.createAttack(attack);
+                    var ret_val = await _attackService.CreateAttack(attack);
                     return ret_val;
                 });
 

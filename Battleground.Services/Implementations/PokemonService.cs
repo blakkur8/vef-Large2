@@ -17,10 +17,10 @@ public class PokemonService : IPokemonService
         _playerRepository = playerRepository;
     }
 
-    public async Task<IEnumerable<PokemonDto>?> getAllPokemons() =>
+    public async Task<IEnumerable<PokemonDto>?> GetAllPokemons() =>
         await _httpClient.GetFromJsonAsync<IEnumerable<PokemonDto>>("pokemons");
 
-    public async Task<PokemonDto> getPokemonByName(string name) =>
+    public async Task<PokemonDto> GetPokemonByName(string name) =>
         await _httpClient.GetFromJsonAsync<PokemonDto>($"pokemons/{name}");
 
 

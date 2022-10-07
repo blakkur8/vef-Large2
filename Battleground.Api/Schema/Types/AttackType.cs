@@ -21,7 +21,7 @@ public class AttackType : ObjectGraphType<AttackDto>
                 System.Console.WriteLine("Pokemon identifier be like:");
                 System.Console.WriteLine(pokemonIdentifier);
 
-                var pokemon = await _pokemonService.getPokemonByName(pokemonIdentifier);
+                var pokemon = await _pokemonService.GetPokemonByName(pokemonIdentifier);
 
                 return pokemon;
 

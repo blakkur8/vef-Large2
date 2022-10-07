@@ -21,19 +21,19 @@ namespace Battleground.Repositories.Implementations
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public IEnumerable<PlayerDto> getAllPlayers()
+        public IEnumerable<PlayerDto> GetAllPlayers()
         {
             var players = _mapper.Map<IEnumerable<PlayerDto>>(_dbContext.Players.Include(p => p.PlayerInventories));
             return players;
         }
 
-        public PlayerDto getPlayerById(int Id)
+        public PlayerDto GetPlayerById(int Id)
         {
             var player = _mapper.Map<PlayerDto>(_dbContext.Players.Include(p => p.PlayerInventories).FirstOrDefault(p => p.Id == Id));
             return player;
         }
 
-        public PlayerDto createPlayer(Players player)
+        public PlayerDto CreatePlayer(Players player)
         {
 
             _dbContext.Add(player);
@@ -43,7 +43,7 @@ namespace Battleground.Repositories.Implementations
             return _mapper.Map<PlayerDto>(player);
         }
 
-        public PlayerDto removePlayer(int id)
+        public PlayerDto RemovePlayer(int id)
         {
             var player = _dbContext.Players.FirstOrDefault(p => p.Id == id);
 

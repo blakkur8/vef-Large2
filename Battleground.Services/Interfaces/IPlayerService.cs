@@ -6,11 +6,11 @@ namespace Battleground.Services.Interfaces;
 
 public interface IPlayerService
 {
-    public IEnumerable<PlayerDto> getAllPlayers();
+    public IEnumerable<PlayerDto> GetAllPlayers();
 
-    public PlayerDto getPlayerById(int Id);
+    public PlayerDto GetPlayerById(int Id);
 
-    public PlayerDto createPlayer(PlayerInputModel playerModel);
+    public PlayerDto CreatePlayer(PlayerInputModel playerModel);
 
-    public PlayerDto removePlayer(int id);
+    public PlayerDto RemovePlayer(int id);
 }

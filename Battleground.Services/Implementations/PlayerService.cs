@@ -20,24 +20,24 @@ public class PlayerService : IPlayerService
         _mapper = mapper;
     }
 
-    public IEnumerable<PlayerDto> getAllPlayers()
+    public IEnumerable<PlayerDto> GetAllPlayers()
     {
-        return _playerRepository.getAllPlayers();
+        return _playerRepository.GetAllPlayers();
     }
 
-    public PlayerDto getPlayerById(int Id)
+    public PlayerDto GetPlayerById(int Id)
     {
-        return _playerRepository.getPlayerById(Id);
+        return _playerRepository.GetPlayerById(Id);
     }
 
-    public PlayerDto createPlayer(PlayerInputModel playerModel)
+    public PlayerDto CreatePlayer(PlayerInputModel playerModel)
     {
         var player = _mapper.Map<Players>(playerModel);
-        return _playerRepository.createPlayer(player);
+        return _playerRepository.CreatePlayer(player);
     }
 
-    public PlayerDto removePlayer(int id)
+    public PlayerDto RemovePlayer(int id)
     {
-        return _playerRepository.removePlayer(id);
+        return _playerRepository.RemovePlayer(id);
     }
 }
