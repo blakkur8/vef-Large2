@@ -23,13 +23,13 @@ namespace Battleground.Repositories.Implementations
         }
         public IEnumerable<PlayerDto> getAllPlayers()
         {
-            var players = _mapper.Map<IEnumerable<PlayerDto>>(_dbContext.Players.Include(p => p.Inventories));
+            var players = _mapper.Map<IEnumerable<PlayerDto>>(_dbContext.Players.Include(p => p.PlayerInventories));
             return players;
         }
 
         public PlayerDto getPlayerById(int Id)
         {
-            var player = _mapper.Map<PlayerDto>(_dbContext.Players.Include(p => p.Inventories).FirstOrDefault(p => p.Id == Id));
+            var player = _mapper.Map<PlayerDto>(_dbContext.Players.Include(p => p.PlayerInventories).FirstOrDefault(p => p.Id == Id));
             return player;
         }
 
@@ -60,13 +60,13 @@ namespace Battleground.Repositories.Implementations
 
         }
 
-        public IEnumerable<PlayerDto> getPokemonOwners(string pokemonIdentifier)
+        public IEnumerable<PlayerDto> GetPokemonOwners(string pokemonIdentifier)
         {
             var owners = _dbContext
                     .PlayerInventories
                     .Include(x => x.Player)
-                    .Where(x => x.PokemonIdentifier == pokemonIdentifier)
-                    .Select(x => x.Player)
+                    .Where(p => p.PokemonIdentifier == pokemonIdentifier)
+                    .Select(p => p.Player)
                     .AsEnumerable();
 
             var results = _mapper.Map<IEnumerable<PlayerDto>>(owners);

@@ -23,16 +23,16 @@ namespace Battleground.Api.Schema.Mutations
         private IPlayerService _playerService;
         private IBattleService _battleService;
         private IAttackService _attackService;
-        private readonly IMapper _mapper;
-        private BattlegroundDbContext _dbContext;
-        public BattlegroundMutation(IPokemonService pokemonService, IPlayerService playerService, IMapper mapper, IBattleService battleService, IAttackService attackService, BattlegroundDbContext dbContext)
+        private IInventoryService _inventoryService;
+
+        public BattlegroundMutation(IPokemonService pokemonService, IPlayerService playerService, IBattleService battleService, IInventoryService inventoryService, IAttackService attackService)
         {
             _pokemonService = pokemonService;
             _playerService = playerService;
             _attackService = attackService;
             _battleService = battleService;
-            _dbContext = dbContext;
-            _mapper = mapper;
+            _inventoryService = inventoryService;
+
 
             Field<PlayerType>("addPlayer")
                 .Argument<PlayerInputType>("player")
@@ -70,6 +70,26 @@ namespace Battleground.Api.Schema.Mutations
                     var attack = context.GetArgument<AttackInputModel>("attack");
                     var ret_val = await _attackService.createAttack(attack);
                     return ret_val;
+                });
+
+            Field<BooleanGraphType>("addPokemonToInventory")
+                .Argument<InventoryInputType>("input")
+                .Resolve(context =>
+                {
+                    var inputInventory = context.GetArgument<InventoryInputModel>("input");
+
+                    var newPokemonInventory = _inventoryService.AddPokemonToInventory(inputInventory);
+                    return true;
+                });
+
+            Field<BooleanGraphType>("removePokemonFromInventory")
+                .Argument<InventoryInputType>("input")
+                .Resolve(context =>
+                {
+                    var inputInventory = context.GetArgument<InventoryInputModel>("input");
+
+                    var bruh = _inventoryService.RemovePokemonToInventory(inputInventory);
+                    return true;
                 });
 
         }

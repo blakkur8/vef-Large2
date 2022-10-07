@@ -6,6 +6,6 @@ public interface IPokemonService
 {
     public Task<IEnumerable<PokemonDto>> getAllPokemons();
     public Task<PokemonDto> getPokemonByName(string name);
-    public IEnumerable<PlayerDto> getPokemonOwners(string pokemonIdentifier);
+    public IEnumerable<PlayerDto> GetPokemonOwners(string pokemonIdentifier);
 
 }

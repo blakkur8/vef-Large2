@@ -17,7 +17,6 @@ namespace Battleground.Repositories.Interfaces
         public PlayerDto createPlayer(Players playerModel);
 
         public PlayerDto removePlayer(int id);
-        public IEnumerable<PlayerDto> getPokemonOwners(string pokemonIdentifier);
-
+        public IEnumerable<PlayerDto> GetPokemonOwners(string pokemonIdentifier);
     }
 }

@@ -12,6 +12,6 @@ public class InventoryProfile : Profile
 {
     public InventoryProfile()
     {
-        CreateMap<PlayerInventories, InventoryDto>();
+        CreateMap<PlayerInventories, PlayerInventoriesDto>();
     }
 }

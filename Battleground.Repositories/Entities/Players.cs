@@ -13,7 +13,7 @@ public class Players
 
     // Navigation properties
     public ICollection<BattlePlayer> PlayerInMatch { get; set; }
-    public ICollection<PlayerInventories> Inventories { get; set; }
+    public ICollection<PlayerInventories> PlayerInventories { get; set; }
 
 
 }

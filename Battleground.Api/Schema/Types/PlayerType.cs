@@ -9,7 +9,9 @@ namespace Battleground.Api.Schema.Types;
 public class PlayerType : ObjectGraphType<PlayerDto>
 {
     private IPokemonService _pokemonService;
-    public PlayerType(IPokemonService pokemonService)
+    private IPlayerService _playerService;
+    private IInventoryService _inventoryService;
+    public PlayerType(IPokemonService pokemonService, IPlayerService playerService, IInventoryService inventoryService)
     {
         _pokemonService = pokemonService;
         Field(x => x.Id).Description("Player Id");
@@ -17,7 +19,9 @@ public class PlayerType : ObjectGraphType<PlayerDto>
         Field<ListGraphType<NonNullGraphType<PokemonType>>>("Inventory")
            .ResolveAsync(async context =>
            {
-               var inventories = context.Source.Inventories;
+               //var inventories = context.Source.PlayerInventories;
+               // Gætum sótt inventory sér fyrir hverja requestu
+               var inventories = _inventoryService.GetPlayerInventory(context.Source.Id);
 
                List<PokemonDto> list = new List<PokemonDto>();
 
@@ -29,5 +33,7 @@ public class PlayerType : ObjectGraphType<PlayerDto>
 
                return list;
            });
+        _playerService = playerService;
+        _inventoryService = inventoryService;
     }
 }

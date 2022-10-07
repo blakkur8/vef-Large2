@@ -26,9 +26,8 @@ builder.Services.AddTransient<IPlayerRepository, PlayerRepository>();
 builder.Services.AddTransient<IBattleService, BattleService>();
 builder.Services.AddTransient<IBattleRepository, BattleRepository>();
 
-builder.Services.AddTransient<IBattleService, BattleService>();
 builder.Services.AddTransient<IInventoryService, InventoryService>();
-
+builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();
 
 builder.Services.AddHttpClient<IPokemonService, PokemonService>(client =>
 {
@@ -67,5 +66,8 @@ app.MapGet("/", context =>
     context.Response.Redirect("/ui/playground");
     return Task.CompletedTask;
 });
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 
 app.Run();

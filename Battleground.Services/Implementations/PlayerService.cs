@@ -40,5 +40,4 @@ public class PlayerService : IPlayerService
     {
         return _playerRepository.removePlayer(id);
     }
-
 }

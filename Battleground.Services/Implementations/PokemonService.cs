@@ -24,8 +24,8 @@ public class PokemonService : IPokemonService
         await _httpClient.GetFromJsonAsync<PokemonDto>($"pokemons/{name}");
 
 
-    public IEnumerable<PlayerDto> getPokemonOwners(string pokemonIdentifier)
+    public IEnumerable<PlayerDto> GetPokemonOwners(string pokemonIdentifier)
     {
-        return _playerRepository.getPokemonOwners(pokemonIdentifier);
+        return _playerRepository.GetPokemonOwners(pokemonIdentifier);
     }
 }
