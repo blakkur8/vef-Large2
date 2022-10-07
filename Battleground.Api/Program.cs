@@ -15,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDefer();
 builder.Services.AddHttpScope();
 
+builder.Services.AddTransient<IAttackService, AttackService>();
+builder.Services.AddTransient<IAttackRepository, AttackRepository>();
 
 builder.Services.AddTransient<IPokemonService, PokemonService>();
 
@@ -29,6 +31,11 @@ builder.Services.AddTransient<IInventoryService, InventoryService>();
 
 
 builder.Services.AddHttpClient<IPokemonService, PokemonService>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("PokemonApiBaseUrl"));
+});
+
+builder.Services.AddHttpClient<IAttackRepository, AttackRepository>(client =>
 {
     client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("PokemonApiBaseUrl"));
 });

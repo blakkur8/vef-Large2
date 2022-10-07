@@ -6,5 +6,5 @@ public class AttackDto
     public bool CriticalHit { get; set; }
     public bool SuccessfulHit { get; set; }
     public BattlePokemonsDto BattlePokemons { get; set; }
-    // public PokemonDto AttackedBy { get; set; }
+    //public PokemonDto AttackedBy { get; set; }
 }
