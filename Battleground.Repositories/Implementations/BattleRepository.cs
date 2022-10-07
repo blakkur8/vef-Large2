@@ -129,6 +129,7 @@ namespace Battleground.Repositories.Implementations
 
         public async Task<BattleDto> CreateBattle(BattleInputModel battle)
         {
+            // Create empty battle
             var battles = _dbContext.Battles;
 
             var battleStatusNotStarted = await _dbContext.BattleStatus.FirstOrDefaultAsync(b => b.Name == "NOT_STARTED");
@@ -138,17 +139,46 @@ namespace Battleground.Repositories.Implementations
                 Status = battleStatusNotStarted,
             };
 
-            battles.Add(newBattle);
+            await battles.AddAsync(newBattle);
             await _dbContext.SaveChangesAsync();
-
             var newBattleId = newBattle.Id;
 
+            // Add players to match
 
-            System.Console.WriteLine("newBattleId");
-            System.Console.WriteLine(newBattleId);
+            foreach (var playerId in battle.PlayerIds)
+            {
+                // var player = await _dbContext.Players.FirstOrDefaultAsync(p => p.Id == playerId);
+                var battlePlayer = new BattlePlayer
+                {
+                    PlayerInMatchId = playerId,
+                    BattleId = newBattleId
+                };
+                var bruh = await _dbContext.Battles.Include(b => b.PlayersInMatch).FirstOrDefaultAsync(b => b.Id == newBattleId);
+                bruh.PlayersInMatch.Add(battlePlayer);
+
+            }
+            await _dbContext.SaveChangesAsync();
 
 
-            throw new NotImplementedException();
+
+            // Add pokemons to match
+
+            foreach (var pokemonId in battle.PokemonIds)
+            {
+                var battlePokemon = new BattlePokemons
+                {
+                    PokemonIdentifier = pokemonId,
+                    BattleId = newBattleId
+                };
+
+                var bruh = await _dbContext.Battles.Include(b => b.BattlePokemons).FirstOrDefaultAsync(b => b.Id == newBattleId);
+                bruh.BattlePokemons.Add(battlePokemon);
+            }
+
+            _dbContext.SaveChanges();
+
+
+            return await GetBattleById(newBattleId);
         }
     }
 }
