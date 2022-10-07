@@ -19,8 +19,9 @@ namespace Battleground.Api.Schema.Mutations
         private IPokemonService _pokemonService;
         private IPlayerService _playerService;
         private IBattleService _battleService;
+        private IInventoryService _inventoryService;
         private readonly IMapper _mapper;
-        public BattlegroundMutation(IPokemonService pokemonService, IPlayerService playerService, IMapper mapper, IBattleService battleService)
+        public BattlegroundMutation(IPokemonService pokemonService, IPlayerService playerService, IMapper mapper, IBattleService battleService, IInventoryService inventoryService)
         {
             _pokemonService = pokemonService;
             _playerService = playerService;
@@ -53,7 +54,29 @@ namespace Battleground.Api.Schema.Mutations
 
                     return null;
                 });
+
+            Field<BooleanGraphType>("addPokemonToInventory")
+                .Argument<InventoryInputType>("input")
+                .Resolve(context =>
+                {
+                    var inputInventory = context.GetArgument<InventoryInputModel>("input");
+
+                    var newPokemonInventory = _inventoryService.AddPokemonToInventory(inputInventory);
+                    return true;
+                });
+
+            Field<BooleanGraphType>("removePokemonFromInventory")
+                .Argument<InventoryInputType>("input")
+                .Resolve(context =>
+                {
+                    var inputInventory = context.GetArgument<InventoryInputModel>("input");
+
+                    var bruh = _inventoryService.RemovePokemonToInventory(inputInventory);
+                    return true;
+                });
+
             _battleService = battleService;
+            _inventoryService = inventoryService;
         }
     }
 }

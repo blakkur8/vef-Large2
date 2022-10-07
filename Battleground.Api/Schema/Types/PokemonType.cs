@@ -18,7 +18,7 @@ public class PokemonType : ObjectGraphType<PokemonDto>
         Field<NonNullGraphType<ListGraphType<NonNullGraphType<PlayerType>>>>("owners")
            .Resolve(context =>
            {
-               var owners = _pokemonService.getPokemonOwners(context.Source.Name);
+               var owners = _pokemonService.GetPokemonOwners(context.Source.Name);
                return owners;
            });
     }
