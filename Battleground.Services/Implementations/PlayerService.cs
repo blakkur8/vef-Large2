@@ -5,6 +5,7 @@ using Battleground.Repositories.Interfaces;
 using Battleground.Services.Interfaces;
 using AutoMapper;
 using Battleground.Repositories.Entities;
+using GraphQL;
 
 namespace Battleground.Services.Implementations;
 
@@ -27,7 +28,10 @@ public class PlayerService : IPlayerService
 
     public PlayerDto GetPlayerById(int Id)
     {
-        return _playerRepository.GetPlayerById(Id);
+        var player = _playerRepository.GetPlayerById(Id);
+        if (player == null)
+            throw new ExecutionError($"Player with id '{Id}' was not found");
+        return player;
     }
 
     public PlayerDto CreatePlayer(PlayerInputModel playerModel)

@@ -75,6 +75,7 @@ public class BattlegroundQuery : ObjectGraphType
             .Argument<IntGraphType>("Id")
             .ResolveAsync(async context =>
             {
+
                 var battleIdArg = context.GetArgument<int>("Id");
                 var battle = await battleService.GetBattleById(battleIdArg);
                 return battle;

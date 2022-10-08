@@ -74,22 +74,21 @@ namespace Battleground.Api.Schema.Mutations
 
             Field<BooleanGraphType>("addPokemonToInventory")
                 .Argument<InventoryInputType>("input")
-                .Resolve(context =>
+                .ResolveAsync(async context =>
                 {
                     var inputInventory = context.GetArgument<InventoryInputModel>("input");
 
-                    var newPokemonInventory = _inventoryService.AddPokemonToInventory(inputInventory);
-                    return true;
+                    return await _inventoryService.AddPokemonToInventory(inputInventory);
+
                 });
 
             Field<BooleanGraphType>("removePokemonFromInventory")
                 .Argument<InventoryInputType>("input")
-                .Resolve(context =>
+                .ResolveAsync(async context =>
                 {
                     var inputInventory = context.GetArgument<InventoryInputModel>("input");
 
-                    var bruh = _inventoryService.RemovePokemonToInventory(inputInventory);
-                    return true;
+                    return await _inventoryService.RemovePokemonFromInventory(inputInventory);
                 });
 
         }

@@ -5,7 +5,7 @@ namespace Battleground.Services.Interfaces;
 
 public interface IInventoryService
 {
-    public bool AddPokemonToInventory(InventoryInputModel inputModel);
-    public bool RemovePokemonToInventory(InventoryInputModel inputModel);
+    public Task<bool> AddPokemonToInventory(InventoryInputModel inputModel);
+    public Task<bool> RemovePokemonFromInventory(InventoryInputModel inputModel);
     public IEnumerable<PlayerInventoriesDto> GetPlayerInventory(int playerId);
 }

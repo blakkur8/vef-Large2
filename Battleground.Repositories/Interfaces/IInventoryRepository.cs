@@ -9,7 +9,7 @@ namespace Battleground.Repositories.Interfaces;
 
 public interface IInventoryRepository
 {
-    public bool AddPokemonToInventory(InventoryInputModel inputModel);
-    public bool RemovePokemonToInventory(InventoryInputModel inputModel);
+    public void AddPokemonToInventory(InventoryInputModel inputModel);
+    public bool RemovePokemonFromInventory(InventoryInputModel inputModel);
     public IEnumerable<PlayerInventoriesDto> GetPlayerInventory(int playerId);
 }

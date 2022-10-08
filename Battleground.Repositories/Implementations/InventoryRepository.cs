@@ -23,7 +23,7 @@ public class InventoryRepository : IInventoryRepository
         _mapper = mapper;
     }
 
-    public bool AddPokemonToInventory(InventoryInputModel inputModel)
+    public void AddPokemonToInventory(InventoryInputModel inputModel)
     {
         var playerInventory = new PlayerInventories
         {
@@ -34,11 +34,10 @@ public class InventoryRepository : IInventoryRepository
 
         _dbContext.Add(playerInventory);
         _dbContext.SaveChanges();
-        return true;
     }
 
 
-    public bool RemovePokemonToInventory(InventoryInputModel inputModel)
+    public bool RemovePokemonFromInventory(InventoryInputModel inputModel)
     {
         var playerInventory = _dbContext.PlayerInventories.FirstOrDefault(x => x.PlayerId == inputModel.PlayerId && x.PokemonIdentifier == inputModel.PokemonIdentifier);
         _dbContext.Remove(playerInventory);
