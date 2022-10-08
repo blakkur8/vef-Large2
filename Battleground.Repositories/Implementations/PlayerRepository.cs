@@ -9,6 +9,7 @@ using Battleground.Repositories.Entities;
 using AutoMapper;
 using Battleground.Models.InputModels;
 using Microsoft.EntityFrameworkCore;
+using GraphQL;
 
 namespace Battleground.Repositories.Implementations
 {
@@ -23,13 +24,15 @@ namespace Battleground.Repositories.Implementations
         }
         public IEnumerable<PlayerDto> GetAllPlayers()
         {
-            var players = _mapper.Map<IEnumerable<PlayerDto>>(_dbContext.Players.Include(p => p.PlayerInventories));
+            var players = _mapper.Map<IEnumerable<PlayerDto>>(_dbContext.Players.Include(p => p.PlayerInventories).Where(p => p.Deleted != true));
             return players;
         }
 
         public PlayerDto GetPlayerById(int Id)
         {
-            var player = _mapper.Map<PlayerDto>(_dbContext.Players.Include(p => p.PlayerInventories).FirstOrDefault(p => p.Id == Id));
+            var player = _mapper.Map<PlayerDto>(_dbContext.Players.Include(p => p.PlayerInventories).Where(p => p.Deleted != true).FirstOrDefault(p => p.Id == Id));
+            if (player == null)
+                throw new ExecutionError($"Player with id '{Id}' was not found");
             return player;
         }
 
@@ -39,25 +42,20 @@ namespace Battleground.Repositories.Implementations
             _dbContext.Add(player);
             _dbContext.SaveChanges();
 
-            // virkar kanski ekki :(
             return _mapper.Map<PlayerDto>(player);
         }
 
-        public PlayerDto RemovePlayer(int id)
+        public bool RemovePlayer(int id)
         {
-            var player = _dbContext.Players.FirstOrDefault(p => p.Id == id);
+            var player = _dbContext.Players.Where(p => p.Deleted != true).FirstOrDefault(p => p.Id == id);
+            if (player == null)
+                throw new ExecutionError($"Player with id '{id}' was not found");
 
-            if (player != null)
-            {
-                player.Deleted = true;
-                //_dbContext.Remove(player);
-                _dbContext.SaveChanges();
-                return _mapper.Map<PlayerDto>(player);
-            }
-            else
-            {
-                throw new DllNotFoundException();
-            }
+            player.Deleted = true;
+            //_dbContext.Remove(player);
+            _dbContext.SaveChanges();
+            return true;
+
 
 
         }
@@ -67,7 +65,7 @@ namespace Battleground.Repositories.Implementations
             var owners = _dbContext
                     .PlayerInventories
                     .Include(x => x.Player)
-                    .Where(p => p.PokemonIdentifier == pokemonIdentifier)
+                    .Where(p => p.PokemonIdentifier == pokemonIdentifier && p.Player.Deleted != true)
                     .Select(p => p.Player)
                     .AsEnumerable();
 

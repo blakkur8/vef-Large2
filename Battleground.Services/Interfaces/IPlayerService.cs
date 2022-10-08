@@ -12,5 +12,5 @@ public interface IPlayerService
 
     public PlayerDto CreatePlayer(PlayerInputModel playerModel);
 
-    public PlayerDto RemovePlayer(int id);
+    public bool RemovePlayer(int id);
 }

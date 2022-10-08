@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Battleground.Api.Schema.Types;
+using Battleground.Models.Enums;
 using Battleground.Services.Interfaces;
 using GraphQL;
 using GraphQL.Types;
@@ -30,6 +31,7 @@ public class BattlegroundQuery : ObjectGraphType
                 return pokemons;
             });
 
+        // Returns PokemonType
         Field<PokemonType>("pokemon")
             .Argument<StringGraphType>("id")
             .ResolveAsync(async context =>
@@ -40,7 +42,8 @@ public class BattlegroundQuery : ObjectGraphType
                 return pokemon;
             });
 
-        Field<ListGraphType<PlayerType>>("allPlayers")
+        // Returns [PlayerType!]!
+        Field<NonNullGraphType<ListGraphType<NonNullGraphType<PlayerType>>>>("allPlayers")
             .Resolve(context =>
             {
                 var players = playerService.GetAllPlayers();
@@ -48,15 +51,13 @@ public class BattlegroundQuery : ObjectGraphType
                 return players;
             });
 
+        // Returns PlayerType
         Field<PlayerType>("player")
-            .Argument<IntGraphType>("Id")
+            .Argument<IntGraphType>("id")
             .Resolve(context =>
             {
 
-                var idArgument = context.GetArgument<int>("Id");
-
-                //System.Console.Write("\n", "idArgument", "\n");
-                //System.Console.Write("\n", idArgument, "\n");
+                var idArgument = context.GetArgument<int>("id");
 
                 var player = playerService.GetPlayerById(idArgument);
 
@@ -64,19 +65,20 @@ public class BattlegroundQuery : ObjectGraphType
             });
 
 
-        Field<ListGraphType<BattleType>>("allBattles")
+        Field<NonNullGraphType<ListGraphType<NonNullGraphType<BattleType>>>>("allBattles")
+            .Argument<EnumerationGraphType<BattleStatus>>("status")
             .ResolveAsync(async context =>
             {
-                var battles = await battleService.GetAllBattles();
+                var status = context.GetArgument<BattleStatus>("status");
+                var battles = await battleService.GetAllBattles(status);
                 return battles;
             });
 
         Field<BattleType>("battle")
-            .Argument<IntGraphType>("Id")
+            .Argument<IntGraphType>("id")
             .ResolveAsync(async context =>
             {
-
-                var battleIdArg = context.GetArgument<int>("Id");
+                var battleIdArg = context.GetArgument<int>("id");
                 var battle = await battleService.GetBattleById(battleIdArg);
                 return battle;
             });

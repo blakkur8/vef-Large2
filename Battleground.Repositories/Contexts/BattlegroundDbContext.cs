@@ -29,5 +29,6 @@ public class BattlegroundDbContext : DbContext
     public DbSet<BattleStatus> BattleStatus { get; set; }
     public DbSet<PlayerInventories> PlayerInventories { get; set; }
     public DbSet<Players> Players { get; set; }
+    // public DbSet<BattlePlayer> BattlePlayers { get; set; }
 
 }

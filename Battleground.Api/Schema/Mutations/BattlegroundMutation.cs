@@ -43,7 +43,7 @@ namespace Battleground.Api.Schema.Mutations
 
             });
 
-            Field<PlayerType>("removePlayer")
+            Field<BooleanGraphType>("removePlayer")
                 .Argument<IntGraphType>("id")
                 .Resolve(context =>
                 {
@@ -56,10 +56,9 @@ namespace Battleground.Api.Schema.Mutations
                 .ResolveAsync(async context =>
                 {
                     var battle = context.GetArgument<BattleInputModel>("battle");
-                    // TODO: Validate input, does pokemon exist with the given id?
                     var newBattle = await _battleService.CreateBattle(battle);
 
-                    return null;
+                    return newBattle;
                 });
 
             Field<AttackType>("attack")

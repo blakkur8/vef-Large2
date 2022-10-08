@@ -28,10 +28,7 @@ public class PlayerService : IPlayerService
 
     public PlayerDto GetPlayerById(int Id)
     {
-        var player = _playerRepository.GetPlayerById(Id);
-        if (player == null)
-            throw new ExecutionError($"Player with id '{Id}' was not found");
-        return player;
+        return _playerRepository.GetPlayerById(Id);
     }
 
     public PlayerDto CreatePlayer(PlayerInputModel playerModel)
@@ -40,7 +37,7 @@ public class PlayerService : IPlayerService
         return _playerRepository.CreatePlayer(player);
     }
 
-    public PlayerDto RemovePlayer(int id)
+    public bool RemovePlayer(int id)
     {
         return _playerRepository.RemovePlayer(id);
     }

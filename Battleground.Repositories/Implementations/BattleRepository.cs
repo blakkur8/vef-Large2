@@ -9,6 +9,7 @@ using Battleground.Repositories.Entities;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Battleground.Models.InputModels;
+using GraphQL;
 
 namespace Battleground.Repositories.Implementations
 {
@@ -23,15 +24,17 @@ namespace Battleground.Repositories.Implementations
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<BattleDto>> GetAllBattles()
+        public async Task<IEnumerable<BattleDto>> GetAllBattles(Battleground.Models.Enums.BattleStatus status)
         {
             var battles = await _dbContext
                                 .Battles
+                                .AsNoTracking()
                                 .Include(b => b.Status)
                                 .Include(b => b.Winner)
                                 .Include(b => b.PlayersInMatch)
                                 .Include(b => b.BattlePokemons)
                                     .ThenInclude(b => b.Attacks)
+                                .Where(b => b.Status.Name == status.ToString())
                                 .Select(b => new BattleDto
                                 {
                                     Id = b.Id,
@@ -69,7 +72,6 @@ namespace Battleground.Repositories.Implementations
                                             PokemonIdentifier = a.Battle.PokemonIdentifier,
                                             BattleId = a.Battle.BattleId
                                         }
-
                                     })).SelectMany(r => r)
                                 }).ToListAsync();
             return battles;
@@ -79,6 +81,7 @@ namespace Battleground.Repositories.Implementations
         {
             var battle = await _dbContext
                                 .Battles
+                                .AsNoTracking()
                                 .Include(b => b.Status)
                                 .Include(b => b.Winner)
                                 .Include(b => b.PlayersInMatch)
@@ -124,6 +127,10 @@ namespace Battleground.Repositories.Implementations
 
                                     })).SelectMany(r => r)
                                 }).FirstOrDefaultAsync(x => x.Id == Id);
+
+            if (battle == null)
+                throw new ExecutionError($"Battle with id '{Id}' does not exist");
+
             return battle;
         }
 
@@ -179,6 +186,24 @@ namespace Battleground.Repositories.Implementations
 
 
             return await GetBattleById(newBattleId);
+        }
+
+        public bool IsPlayerInBattle(int playerId)
+        {
+            var battles = _dbContext
+                            .Battles
+                            .Include(b => b.PlayersInMatch)
+                            .Include(b => b.Status)
+                            .Where(b => b.PlayersInMatch.Any(pm => pm.PlayerInMatchId == playerId) && b.Status.Name != Battleground.Models.Enums.BattleStatus.FINISHED.ToString())
+                            .AsEnumerable();
+
+            if (battles.Count() > 0)
+            {
+                return true;
+            }
+            return false;
+
+
         }
     }
 }
