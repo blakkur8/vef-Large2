@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Battleground.Repositories.Interfaces;
 using Battleground.Repositories.Contexts;
 using Battleground.Models.Dtos;
 using Battleground.Repositories.Entities;
 using AutoMapper;
-using Battleground.Models.InputModels;
 using Microsoft.EntityFrameworkCore;
 using GraphQL;
 

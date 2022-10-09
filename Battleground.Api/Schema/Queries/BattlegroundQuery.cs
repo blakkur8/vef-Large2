@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Battleground.Api.Schema.Types;
 using Battleground.Models.Enums;
 using Battleground.Services.Interfaces;

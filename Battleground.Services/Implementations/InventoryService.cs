@@ -1,5 +1,4 @@
 ﻿using Battleground.Models.Dtos;
-using Battleground.Models.Exceptions;
 using Battleground.Models.InputModels;
 using Battleground.Repositories.Interfaces;
 using Battleground.Services.Interfaces;

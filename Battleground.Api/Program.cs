@@ -7,7 +7,6 @@ using Battleground.Services.Interfaces;
 using GraphQL;
 using GraphQL.Types;
 using System.Reflection;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

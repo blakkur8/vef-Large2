@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Battleground.Repositories.Entities;
 using Battleground.Models.Dtos;
-using Battleground.Api.Schema.InputTypes;
 using Battleground.Models.InputModels;
 
 namespace Battleground.Api.Profiles

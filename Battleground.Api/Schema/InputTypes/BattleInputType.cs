@@ -1,8 +1,5 @@
-using Battleground.Models.Dtos;
 using Battleground.Models.InputModels;
 using GraphQL.Types;
-
-
 
 namespace Battleground.Api.Schema.InputTypes;
 public class BattleInputType : InputObjectGraphType<BattleInputModel>

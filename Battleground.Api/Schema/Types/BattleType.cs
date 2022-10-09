@@ -15,7 +15,7 @@ public class BattleType : ObjectGraphType<BattleDto>
 
         Field(x => x.Winner, nullable: true).Description("The winner of the battle");
 
-        Field<ListGraphType<PokemonType>>("battlePokemons")
+        Field<NonNullGraphType<ListGraphType<NonNullGraphType<PokemonType>>>>("battlePokemons")
             .Description("The pokemons fighting in the battle")
             .ResolveAsync(async context =>
             {

@@ -1,19 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 using Battleground.Api.Schema.Types;
 using Battleground.Services.Interfaces;
 using Battleground.Api.Schema.InputTypes;
 
 using GraphQL;
 using GraphQL.Types;
-using AutoMapper;
 using Battleground.Models.InputModels;
-using Battleground.Repositories.Contexts;
-using Battleground.Repositories.Entities;
-using Battleground.Models.Dtos;
 
 namespace Battleground.Api.Schema.Mutations
 {

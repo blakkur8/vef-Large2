@@ -1,8 +1,6 @@
 using Battleground.Models.Dtos;
 using Battleground.Services.Interfaces;
 using GraphQL.Types;
-using GraphQL;
-
 
 namespace Battleground.Api.Schema.Types;
 

@@ -1,4 +1,3 @@
-using Battleground.Models.Dtos;
 using Battleground.Models.InputModels;
 using GraphQL.Types;
 

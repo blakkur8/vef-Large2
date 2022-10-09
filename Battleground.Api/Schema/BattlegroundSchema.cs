@@ -1,11 +1,6 @@
-﻿using System;
-using GraphQL;
-using GraphQL.Types;
-using GraphQL.Instrumentation;
+﻿using GraphQL.Instrumentation;
 using Battleground.Api.Schema.Queries;
 using Battleground.Api.Schema.Mutations;
-using Battleground.Api.Schema.InputTypes;
-using Battleground.Models.InputModels;
 using Battleground.Models.Dtos;
 using Battleground.Api.Schema.Types;
 
