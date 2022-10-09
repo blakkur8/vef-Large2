@@ -17,6 +17,8 @@ public class AttackType : ObjectGraphType<AttackDto>
         Field<PokemonType>("attackedBy")
             .ResolveAsync(async context =>
             {
+                System.Console.WriteLine("DEBUG 2!:");
+                System.Console.WriteLine(context.Source.BattlePokemons.PokemonIdentifier);
                 var pokemonIdentifier = context.Source.BattlePokemons.PokemonIdentifier;
                 System.Console.WriteLine("Pokemon identifier be like:");
                 System.Console.WriteLine(pokemonIdentifier);

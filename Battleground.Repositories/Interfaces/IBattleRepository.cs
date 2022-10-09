@@ -10,5 +10,7 @@ public interface IBattleRepository
     public Task<BattleDto> GetBattleById(int Id);
     public Task<BattleDto> CreateBattle(BattleInputModel battle);
     public bool IsPlayerInBattle(int playerId);
+    public void FinishBattleAndCrownWinner(int battleId, int winnerId);
+    public void StartBattle(int battleId);
 
 }

@@ -79,6 +79,31 @@ namespace Battleground.Repositories.Implementations
 
         public async Task<BattleDto> GetBattleById(int Id)
         {
+
+            var battle_ = await _dbContext
+                                .Battles
+                                .FirstOrDefaultAsync(b => b.Id == Id);
+
+            if (battle_ == null)
+                throw new ExecutionError($"Battle with id '{Id}' does not exist");
+
+            var attacks = await _dbContext
+                                .Attacks
+                                .Include(a => a.Battle)
+                                .Where(a => a.Battle.BattleId == Id)
+                                .Select(a => new AttackDto
+                                {
+                                    DamageDealt = a.Damage,
+                                    SuccessfulHit = a.Success,
+                                    CriticalHit = a.CriticalHit,
+                                    BattlePokemons = new BattlePokemonsDto
+                                    {
+                                        PokemonIdentifier = a.Battle.PokemonIdentifier,
+                                        BattleId = a.Battle.BattleId
+                                    }
+                                })
+                                .ToListAsync();
+
             var battle = await _dbContext
                                 .Battles
                                 .AsNoTracking()
@@ -114,22 +139,12 @@ namespace Battleground.Repositories.Implementations
                                         PokemonIdentifier = bp.PokemonIdentifier,
                                         BattleId = bp.BattleId
                                     }),
-                                    Attacks = b.BattlePokemons.Select(bp => bp.Attacks.Select(a => new AttackDto
-                                    {
-                                        DamageDealt = a.Damage,
-                                        SuccessfulHit = a.Success,
-                                        CriticalHit = a.CriticalHit,
-                                        BattlePokemons = new BattlePokemonsDto
-                                        {
-                                            PokemonIdentifier = a.Battle.PokemonIdentifier,
-                                            BattleId = a.Battle.BattleId
-                                        }
-
-                                    })).SelectMany(r => r)
+                                    Attacks = attacks
                                 }).FirstOrDefaultAsync(x => x.Id == Id);
 
-            if (battle == null)
-                throw new ExecutionError($"Battle with id '{Id}' does not exist");
+
+
+
 
             return battle;
         }
@@ -204,6 +219,29 @@ namespace Battleground.Repositories.Implementations
             return false;
 
 
+        }
+
+        public void FinishBattleAndCrownWinner(int battleId, int winnerId)
+        {
+            var battle = _dbContext.Battles.FirstOrDefault(b => b.Id == battleId);
+
+            var battleStatusFinished = _dbContext.BattleStatus.FirstOrDefault(x => x.Name == "FINISHED");
+
+            var winner = _dbContext.Players.FirstOrDefault(x => x.Id == winnerId);
+
+            battle.Status = battleStatusFinished;
+            battle.Winner = winner;
+            _dbContext.SaveChanges();
+
+        }
+
+        public void StartBattle(int battleId)
+        {
+            var battle = _dbContext.Battles.FirstOrDefault(b => b.Id == battleId);
+            var startedStatus = _dbContext.BattleStatus.FirstOrDefault(s => s.Name == "STARTED");
+
+            battle.Status = startedStatus;
+            _dbContext.SaveChanges();
         }
     }
 }

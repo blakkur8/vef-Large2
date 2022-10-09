@@ -29,52 +29,52 @@ namespace Battleground.Repositories.Implementations
         {
             // need pokemon base attack
             // calculate for critical and not hitting 
-            // var pokemon = _dbContext.BattlePokemons.FirstOrDefault(bp => bp.PokemonIdentifier == attack.Attacker);
             Random rnd = new Random();
             int hit = rnd.Next(0, 100);
             int crit = rnd.Next(0, 100);
 
 
             var battlePokemon = _dbContext.BattlePokemons.FirstOrDefault(bp => bp.BattleId == attack.BattleId && bp.PokemonIdentifier == attack.Attacker);
-
-            if (pokemon == null)
-            {
-                throw new KeyNotFoundException();
-            }
+            System.Console.WriteLine("DEBUG 1!:");
+            System.Console.WriteLine(battlePokemon.PokemonIdentifier);
 
             var new_attack = new Attacks();
-            new_attack.Damage = pokemon.BaseAttack;
+            new_attack.CriticalHit = false;
+            new_attack.Success = false;
+            new_attack.Damage = 0;
             new_attack.Battle = battlePokemon;
 
+            // If hit was successful (15% chance of a miss)
             if (hit >= 15)
             {
                 new_attack.Success = true;
+                // If hit was a critical hit (30% chance of a critical hit)
                 if (crit <= 30)
                 {
                     new_attack.CriticalHit = true;
-                    new_attack.Damage = Convert.ToInt32(new_attack.Damage * 1.4);
+                    new_attack.Damage = Convert.ToInt32(pokemon.BaseAttack * 1.4);
                 }
                 else
                 {
-                    new_attack.CriticalHit = false;
+                    new_attack.Damage = pokemon.BaseAttack;
                 }
             }
-            else
-            {
-                new_attack.Success = false;
-                new_attack.Damage = 0;
-            }
 
-            var last_attack = _dbContext.Attacks.Include(a => a.Battle).Where(a => a.Battle.BattleId == attack.BattleId).ToList().Last();
-            // var last_attack = b
-
-            if (last_attack.Battle.PokemonIdentifier == attack.Attacker)
-            {
-                throw new NotImplementedException();
-            }
             _dbContext.Attacks.Add(new_attack);
             _dbContext.SaveChanges();
-            var ret_val = _mapper.Map<AttackDto>(new_attack);
+
+            // var ret_val = _mapper.Map<AttackDto>(new_attack);
+            var ret_val = new AttackDto
+            {
+                DamageDealt = new_attack.Damage,
+                CriticalHit = new_attack.CriticalHit,
+                SuccessfulHit = new_attack.Success,
+                BattlePokemons = new BattlePokemonsDto
+                {
+                    BattleId = attack.BattleId,
+                    PokemonIdentifier = attack.Attacker
+                }
+            };
             return ret_val;
 
         }

@@ -82,4 +82,14 @@ public class BattleService : IBattleService
 
         return await _battleRepository.CreateBattle(battle);
     }
+
+    public void FinishBattleAndCrownWinner(int battleId, int winnerId)
+    {
+        _battleRepository.FinishBattleAndCrownWinner(battleId, winnerId);
+    }
+
+    public void StartBattle(int battleId)
+    {
+        _battleRepository.StartBattle(battleId);
+    }
 }
